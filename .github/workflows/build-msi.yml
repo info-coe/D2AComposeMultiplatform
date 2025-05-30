@@ -19,13 +19,17 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Install WiX Toolset (if needed)
+          run:|
+            choco install wixtoolset -y
+
       - name: Grant execution rights to Gradlew
         run: |
           git config --global core.autocrlf input
           chmod +x gradlew
 
       - name: Build MSI
-        run: ./gradlew packageMsi
+        run: ./gradlew packageMsi --stacktrace
 
       - name: Upload MSI artifact
         uses: actions/upload-artifact@v4
