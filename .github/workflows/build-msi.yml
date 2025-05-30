@@ -20,7 +20,7 @@ jobs:
           java-version: '17'
 
       - name: Install WiX Toolset (if needed)
-          run:|
+        run: |
             choco install wixtoolset -y
 
       - name: Grant execution rights to Gradlew
