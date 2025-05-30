@@ -35,4 +35,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: MyApp-MSI
-          path: build/compose/binaries/msi/*.msi
+          path: composeApp/build/compose/binaries/main/msi/*.msi
