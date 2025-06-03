@@ -82,7 +82,7 @@ fun ChatScreen() {
                     onNavigationClick = {
 
                     },
-                    title = "NxtGen Agents",
+                    title = "NxtGen Agent",
                     actions = {
                         IconButton(
                             onClick = {

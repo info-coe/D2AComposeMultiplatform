@@ -7,4 +7,7 @@ enum class PlatformType {
     Web;
 }
 
-expect fun getPlatform() : PlatformType
+expect fun getPlatform(): PlatformType
+
+fun PlatformType.isAndroidOrIos(): Boolean =
+    (this.name == PlatformType.Android.name) || (this.name == PlatformType.Ios.name)

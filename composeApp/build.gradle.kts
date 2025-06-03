@@ -54,10 +54,19 @@ kotlin {
     
     sourceSets {
         val desktopMain by getting
+
         
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.datastore)
+            implementation(libs.datastore.preferences)
+            implementation(libs.androidx.core.ktx)
+            implementation("androidx.security:security-crypto:1.1.0-alpha03")
+            implementation(project.dependencies.platform("io.insert-koin:koin-bom:3.5.4"))
+            implementation("io.insert-koin:koin-android")
+            implementation("io.insert-koin:koin-compose")
+
         }
 
         commonMain.dependencies {
@@ -82,6 +91,8 @@ kotlin {
             implementation(libs.kotlinx.coroutinesSwing)
             implementation("org.jetbrains.compose.ui:ui-tooling-preview-desktop:1.8.1")
         }
+
+
     }
 }
 
