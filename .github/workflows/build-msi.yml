@@ -29,7 +29,7 @@ jobs:
           chmod +x gradlew
 
       - name: Build MSI
-        run: ./gradlew packageMsi --stacktrace
+        run: ./gradlew packageReleaseMsi --stacktrace
 
       - name: Upload MSI artifact
         uses: actions/upload-artifact@v4

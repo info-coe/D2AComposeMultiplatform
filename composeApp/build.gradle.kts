@@ -19,7 +19,7 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -30,9 +30,9 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     jvm("desktop")
-    
+
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         outputModuleName = "composeApp"
@@ -52,22 +52,22 @@ kotlin {
         }
         binaries.executable()
     }
-    
+
     sourceSets {
         val desktopMain by getting
 
-        
+
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.datastore)
             implementation(libs.datastore.preferences)
             implementation(libs.androidx.core.ktx)
-            implementation("androidx.security:security-crypto:1.1.0-alpha03")
-            implementation(project.dependencies.platform("io.insert-koin:koin-bom:3.5.4"))
-            implementation("io.insert-koin:koin-android")
-            implementation("io.insert-koin:koin-compose")
-
+            implementation(libs.androidx.security.crypto)
+            implementation(libs.ktor.client.okhttp)
+            implementation(libs.koin.android)
+            implementation(libs.androidx.lifecycle.viewmodel.compose)
+            implementation(libs.androidx.lifecycle.runtimeCompose)
         }
 
         commonMain.dependencies {
@@ -81,8 +81,35 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.navigation.compose)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.ktor.client.core)
+            implementation(libs.napier)
+            implementation(libs.ktor.client.logging)
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
+            implementation(libs.koin.androidx.compose)
         }
 
+
+        wasmJsMain.dependencies {
+            implementation(libs.ktor.client.js.wasm)
+            implementation(libs.ktor.client.resources.wasm)
+        }
+
+
+        iosArm64Main.dependencies {
+            implementation(libs.ktor.client.darwin)
+        }
+
+        iosSimulatorArm64Main.dependencies {
+            implementation(libs.ktor.client.darwin)
+        }
+
+        iosX64Main.dependencies {
+            implementation(libs.ktor.client.darwin)
+        }
 
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -91,6 +118,7 @@ kotlin {
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutinesSwing)
+            implementation(libs.ktor.client.okhttp)
             implementation("org.jetbrains.compose.ui:ui-tooling-preview-desktop:1.8.1")
         }
 
@@ -131,24 +159,21 @@ dependencies {
 
 compose.desktop {
     application {
-        mainClass = "InfoD2A"
+        mainClass = "org.infomericainc.infod2a.MainKt"
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "org.infomericainc.infod2a"
+            packageName = "InfoD2A"
             packageVersion = "1.0.0"
+
             windows {
                 shortcut = true
                 menu = true
                 menuGroup = "Infomerica"
-                packageName = "InfoD2A"
+                console = true
             }
 
-            linux {
-                shortcut = true
-                menuGroup = "Infomerica"
-                packageName = "InfoD2A"
-            }
         }
+
     }
 }

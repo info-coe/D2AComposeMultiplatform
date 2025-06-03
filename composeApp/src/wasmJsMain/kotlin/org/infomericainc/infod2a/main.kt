@@ -6,8 +6,7 @@ import androidx.navigation.ExperimentalBrowserHistoryApi
 import androidx.navigation.bindToNavigation
 import kotlinx.browser.document
 import kotlinx.browser.window
-import org.infomericainc.infod2a.chat.ChatScreen
-import org.infomericainc.infod2a.navigation.InfoD2AEntryPoint
+import org.infomericainc.infod2a.presentation.navigation.InfoD2AEntryPoint
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalBrowserHistoryApi::class)
 fun main() {
