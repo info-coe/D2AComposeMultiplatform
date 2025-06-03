@@ -29,10 +29,19 @@ jobs:
           chmod +x gradlew
 
       - name: Build MSI
-        run: ./gradlew packageReleaseMsi --stacktrace
+        run: ./gradlew packageMsi --stacktrace
+
+      - name: Build Exe
+        run: ./gradlew packageExe --stacktrace
 
       - name: Upload MSI artifact
         uses: actions/upload-artifact@v4
         with:
-          name: MyApp-MSI
+          name: InfoD2AMsi
           path: composeApp/build/compose/binaries/main/msi/*.msi
+
+      - name: Upload Exe artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: InfoD2AExe
+          path: composeApp/build/compose/binaries/main/exe/*.exe
