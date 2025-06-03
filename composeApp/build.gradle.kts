@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
+    alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 
 kotlin {
@@ -79,6 +80,7 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+            implementation(libs.navigation.compose)
         }
 
 
@@ -129,12 +131,24 @@ dependencies {
 
 compose.desktop {
     application {
-        mainClass = "org.infomericainc.infod2a.MainKt"
+        mainClass = "InfoD2A"
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "org.infomericainc.infod2a"
             packageVersion = "1.0.0"
+            windows {
+                shortcut = true
+                menu = true
+                menuGroup = "Infomerica"
+                packageName = "InfoD2A"
+            }
+
+            linux {
+                shortcut = true
+                menuGroup = "Infomerica"
+                packageName = "InfoD2A"
+            }
         }
     }
 }

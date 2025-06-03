@@ -43,6 +43,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import infod2a.composeapp.generated.resources.Res
 import infod2a.composeapp.generated.resources.compose_multiplatform
 import org.infomericainc.infod2a.chat.components.ChatTopBar
@@ -52,7 +53,9 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
-fun ChatScreen() {
+fun ChatScreen(
+    navController: NavController
+) {
     MaterialTheme {
         val platformType by remember {
             mutableStateOf(getPlatform())
@@ -80,7 +83,7 @@ fun ChatScreen() {
                 ChatTopBar(
                     platformType = platformType,
                     onNavigationClick = {
-
+                        navController.navigateUp()
                     },
                     title = "NxtGen Agent",
                     actions = {
