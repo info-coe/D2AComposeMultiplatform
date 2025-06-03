@@ -175,5 +175,11 @@ compose.desktop {
 
         }
 
+        buildTypes.release.proguard {
+            version = "1.0.0"
+            obfuscate.set(false)
+            optimize.set(true)
+        }
+
     }
 }

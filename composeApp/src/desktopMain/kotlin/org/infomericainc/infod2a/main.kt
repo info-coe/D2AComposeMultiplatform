@@ -11,9 +11,6 @@ import javax.swing.JFrame
 
 fun main() = application {
     val state = rememberWindowState()
-    startKoin {
-        modules(getCommonModules())
-    }
     Window(
         onCloseRequest = ::exitApplication,
         title = "InfoD2A",

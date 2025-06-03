@@ -13,9 +13,6 @@ import org.koin.core.context.GlobalContext.startKoin
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalBrowserHistoryApi::class)
 fun main() {
     val body = document.body ?: return
-    startKoin {
-        modules(getCommonModules())
-    }
     ComposeViewport(body) {
         InfoD2AEntryPoint {
             window.bindToNavigation(it)
