@@ -28,7 +28,7 @@ jobs:
         run: |
           rm -rf docs
           mkdir -p docs
-          cp -r build/dist/wasmJs/productionExecutable/* docs/
+          cp -r composeApp/build/dist/wasmJs/developmentExecutable/* docs/
 
       - name: Commit and push updated docs
         run: |
