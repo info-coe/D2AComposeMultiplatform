@@ -162,7 +162,8 @@ compose.desktop {
         mainClass = "org.infomericainc.infod2a.MainKt"
 
         nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb, TargetFormat.Exe)
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb, TargetFormat.Exe
+            )
             packageName = "InfoD2A"
             packageVersion = "1.0.0"
 
