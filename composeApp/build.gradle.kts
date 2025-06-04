@@ -171,7 +171,6 @@ compose.desktop {
                 shortcut = true
                 menu = true
                 menuGroup = "Infomerica"
-                console = true
             }
 
         }
