@@ -16,19 +16,18 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -38,8 +37,6 @@ import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.Send
 import androidx.compose.material.icons.rounded.Transcribe
-import androidx.compose.material.icons.rounded.VerifiedUser
-import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -65,6 +62,8 @@ import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -142,6 +141,21 @@ private fun DesktopChatScreen(
             showMenu = false
         }
     }
+
+    var bottomHeight by remember {
+        mutableStateOf(0.dp)
+    }
+
+    val density = LocalDensity.current
+
+    val listState = rememberLazyListState()
+
+    LaunchedEffect(conversations) {
+        if (conversations.isNotEmpty()) {
+            listState.animateScrollToItem(conversations.size)
+        }
+    }
+
     Scaffold(
         topBar = {
             Column {
@@ -336,7 +350,7 @@ private fun DesktopChatScreen(
                 modifier = Modifier
                     .fillMaxSize()
             ) {
-                if(conversations.isEmpty()) {
+                if (conversations.isEmpty()) {
                     Column(
                         modifier = Modifier
                             .fillMaxSize(),
@@ -377,14 +391,15 @@ private fun DesktopChatScreen(
                 } else {
                     LazyColumn(
                         modifier = Modifier
+                            .padding(
+                                bottom = bottomHeight
+                            )
                             .fillMaxWidth()
                             .fillMaxHeight()
                             .padding(
                                 horizontal = 160.dp
-                            )
-                            .padding(
-                                bottom = 20.dp
-                            )
+                            ),
+                        state = listState
                     ) {
                         item {
                             Spacer(
@@ -473,6 +488,11 @@ private fun DesktopChatScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .align(Alignment.BottomCenter)
+                        .onGloballyPositioned { placed ->
+                            with(density) {
+                                bottomHeight = placed.size.height.toDp() + 10.dp
+                            }
+                        }
                         .padding(
                             bottom = 20.dp
                         )
@@ -519,6 +539,7 @@ private fun DesktopChatScreen(
                                         ((keyEvent.key == Key.ShiftLeft) || (keyEvent.key == Key.ShiftLeft)) && (keyEvent.key == Key.Enter) -> {
                                             true
                                         }
+
                                         keyEvent.key == Key.Enter -> {
                                             if (userInput.isNotEmpty()) {
                                                 onEvent(
@@ -531,6 +552,7 @@ private fun DesktopChatScreen(
                                             }
                                             true
                                         }
+
                                         else -> {
                                             false
                                         }
