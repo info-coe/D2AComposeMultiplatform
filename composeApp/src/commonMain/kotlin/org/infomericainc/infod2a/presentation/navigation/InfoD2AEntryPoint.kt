@@ -15,7 +15,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import org.infomericainc.infod2a.di.getCommonModules
 import org.infomericainc.infod2a.presentation.chat.ChatScreen
-import org.infomericainc.infod2a.presentation.chat.viewmodel.ChatCompletionEvent
 import org.infomericainc.infod2a.presentation.chat.viewmodel.ChatCompletionViewModel
 import org.infomericainc.infod2a.presentation.welcome.WelcomeScreen
 import org.koin.compose.KoinApplication
@@ -23,6 +22,7 @@ import org.koin.compose.koinInject
 
 @Composable
 fun InfoD2AEntryPoint(
+    desktopWindowWidth : Int = 0,
     onNavHostReady: suspend (NavController) -> Unit = {}
 ) {
     val navController = rememberNavController()
@@ -52,6 +52,7 @@ fun InfoD2AEntryPoint(
             ) {
                 composable(Routes.WELCOME.name) {
                     WelcomeScreen(
+                        desktopWindowWidth = desktopWindowWidth,
                         navController = navController
                     )
                 }
@@ -65,6 +66,7 @@ fun InfoD2AEntryPoint(
                         navController = navController,
                         conversations = conversations.value,
                         chatUiState = chatUiState.value,
+                        desktopWindowWidth = desktopWindowWidth,
                         onEvent = chatViewModel::onEvent
                     )
                 }

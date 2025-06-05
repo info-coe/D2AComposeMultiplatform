@@ -33,11 +33,13 @@ import org.infomericainc.infod2a.util.getPlatform
 import org.infomericainc.infod2a.util.isAndroidOrIos
 import org.infomericainc.infod2a.presentation.navigation.Routes
 import org.infomericainc.infod2a.theme.PoppinsFont
+import org.infomericainc.infod2a.util.extension.isMobileDesktop
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun WelcomeScreen(
-    navController: NavController
+    navController: NavController,
+    desktopWindowWidth: Int,
 ) {
 
     val isAndroidOrIos by remember {
@@ -49,8 +51,14 @@ fun WelcomeScreen(
             navController.navigate(Routes.CHAT.name)
         }
     } else {
-        D2ADesktopWelcomeScreen {
-            navController.navigate(Routes.CHAT.name)
+        if (desktopWindowWidth.isMobileDesktop()) {
+            D2AMobileWelcomeScreen {
+                navController.navigate(Routes.CHAT.name)
+            }
+        } else {
+            D2ADesktopWelcomeScreen {
+                navController.navigate(Routes.CHAT.name)
+            }
         }
     }
 
@@ -78,25 +86,28 @@ private fun D2AMobileWelcomeScreen(
             modifier = Modifier
                 .fillMaxHeight(1f)
                 .fillMaxWidth(),
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
                 painter = painterResource(Res.drawable.logo),
                 contentDescription = "",
                 modifier = Modifier
+                    .padding(
+                        top = 20.dp
+                    )
                     .width(80.dp)
                     .height(80.dp)
             )
             Text(
-                "Welcome to InfoD2A",
+                "Welcome to InfoCRM",
                 fontFamily = PoppinsFont(),
                 fontWeight = FontWeight.Bold,
-                fontSize = 26.sp
+                fontSize = 22.sp
             )
 
             Text(
-                "Your nxtGen AI agent designed for your\n business needs",
+                "Your CRM helper designed for your \n business needs",
                 fontFamily = PoppinsFont(),
                 fontWeight = FontWeight.Medium,
                 fontSize = 16.sp,
@@ -112,7 +123,7 @@ private fun D2AMobileWelcomeScreen(
                 onClick = onGetStarted,
                 modifier = Modifier
                     .padding(
-                        top = 10.dp
+                        top = 15.dp
                     ),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Black,
@@ -123,7 +134,7 @@ private fun D2AMobileWelcomeScreen(
                     "Get Started",
                     fontFamily = PoppinsFont(),
                     fontWeight = FontWeight.Medium,
-                    fontSize = 12.sp
+                    fontSize = 14.sp
                 )
             }
         }
