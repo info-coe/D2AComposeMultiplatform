@@ -22,7 +22,7 @@ import org.koin.compose.koinInject
 
 @Composable
 fun InfoD2AEntryPoint(
-    desktopWindowWidth : Int = 0,
+    desktopWindowWidth : Int = 600,
     onNavHostReady: suspend (NavController) -> Unit = {}
 ) {
     val navController = rememberNavController()

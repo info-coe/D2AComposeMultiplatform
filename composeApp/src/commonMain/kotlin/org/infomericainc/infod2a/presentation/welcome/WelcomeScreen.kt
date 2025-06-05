@@ -29,11 +29,11 @@ import androidx.navigation.NavController
 import infod2a.composeapp.generated.resources.Res
 import infod2a.composeapp.generated.resources.logo
 import infod2a.composeapp.generated.resources.welcome
-import org.infomericainc.infod2a.util.getPlatform
-import org.infomericainc.infod2a.util.isAndroidOrIos
 import org.infomericainc.infod2a.presentation.navigation.Routes
 import org.infomericainc.infod2a.theme.PoppinsFont
 import org.infomericainc.infod2a.util.extension.isMobileDesktop
+import org.infomericainc.infod2a.util.getPlatform
+import org.infomericainc.infod2a.util.isAndroidOrIos
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
@@ -48,7 +48,9 @@ fun WelcomeScreen(
 
     if (isAndroidOrIos) {
         D2AMobileWelcomeScreen {
-            navController.navigate(Routes.CHAT.name)
+            navController.navigate(
+                Routes.CHAT.name
+            )
         }
     } else {
         if (desktopWindowWidth.isMobileDesktop()) {
@@ -57,7 +59,9 @@ fun WelcomeScreen(
             }
         } else {
             D2ADesktopWelcomeScreen {
-                navController.navigate(Routes.CHAT.name)
+                navController.navigate(
+                    Routes.CHAT.name
+                )
             }
         }
     }
